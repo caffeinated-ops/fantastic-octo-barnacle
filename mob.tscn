@@ -1,47 +1,79 @@
-[gd_scene load_steps=10 format=3 uid="uid://8ave1i33ii2y"]
+[gd_scene load_steps=14 format=3 uid="uid://8ave1i33ii2y"]
 
 [ext_resource type="Script" uid="uid://bqf71i7aj8ssj" path="res://mob.gd" id="1_1qmh0"]
-[ext_resource type="Texture2D" uid="uid://cg5eb81pf6bvb" path="res://art/enemyFlyingAlt_1.png" id="1_b3mxk"]
-[ext_resource type="Texture2D" uid="uid://df3rdvt1uvaq" path="res://art/enemyFlyingAlt_2.png" id="2_1qmh0"]
-[ext_resource type="Texture2D" uid="uid://bnch8bxt14ytk" path="res://art/enemySwimming_1.png" id="3_gfurk"]
-[ext_resource type="Texture2D" uid="uid://wp8165qjifns" path="res://art/enemySwimming_2.png" id="4_ieysi"]
-[ext_resource type="Texture2D" uid="uid://c8vntfpmg76ew" path="res://art/enemyWalking_1.png" id="5_cixyi"]
-[ext_resource type="Texture2D" uid="uid://cu4h031km7st6" path="res://art/enemyWalking_2.png" id="6_7ulmv"]
+[ext_resource type="Texture2D" uid="uid://cm1d0om2m3lky" path="res://art/knight.png" id="2_nokgg"]
+[ext_resource type="Texture2D" uid="uid://co5u50envtolj" path="res://art/sickle_sheet.png" id="3_ubaqv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubaqv"]
+atlas = ExtResource("2_nokgg")
+region = Rect2(0, 147, 86, 49)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p11y5"]
+atlas = ExtResource("2_nokgg")
+region = Rect2(86, 147, 86, 49)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s5nov"]
+atlas = ExtResource("2_nokgg")
+region = Rect2(172, 147, 86, 49)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b3mxk"]
+atlas = ExtResource("3_ubaqv")
+region = Rect2(35, 129, 109, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qmh0"]
+atlas = ExtResource("3_ubaqv")
+region = Rect2(285, 129, 109, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfurk"]
+atlas = ExtResource("3_ubaqv")
+region = Rect2(160, 129, 109, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ieysi"]
+atlas = ExtResource("3_ubaqv")
+region = Rect2(410, 129, 109, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cixyi"]
+atlas = ExtResource("3_ubaqv")
+region = Rect2(535, 129, 109, 63)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_pcqmr"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_b3mxk")
+"texture": SubResource("AtlasTexture_ubaqv")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_1qmh0")
+"texture": SubResource("AtlasTexture_p11y5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s5nov")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p11y5")
 }],
 "loop": true,
-"name": &"fly",
+"name": &"knight",
 "speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_gfurk")
+"texture": SubResource("AtlasTexture_b3mxk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_ieysi")
+"texture": SubResource("AtlasTexture_1qmh0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gfurk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ieysi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cixyi")
 }],
 "loop": true,
-"name": &"swim",
-"speed": 3.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_cixyi")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_7ulmv")
-}],
-"loop": true,
-"name": &"walk",
-"speed": 3.0
+"name": &"sickle",
+"speed": 4.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jbnni"]
@@ -56,9 +88,10 @@ script = ExtResource("1_1qmh0")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.75, 0.75)
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_pcqmr")
-animation = &"fly"
+animation = &"sickle"
+frame_progress = 0.13504048
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5707964
