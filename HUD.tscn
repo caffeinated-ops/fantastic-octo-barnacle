@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bygg0qm4y8c5n"]
 
-[ext_resource type="Script" uid="uid://b2si7w13wo1o7" path="res://HUD.gd" id="1_efote"]
+[ext_resource type="Script" uid="uid://claqxxdseq0hn" path="res://HUD.gd" id="1_efote"]
 [ext_resource type="FontFile" uid="uid://dsslxgebcrnhe" path="res://fonts/Xolonium-Regular.ttf" id="2_vow1y"]
 
 [node name="CanvasLayer" type="CanvasLayer"]
@@ -17,7 +17,6 @@ grow_horizontal = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("2_vow1y")
 theme_override_font_sizes/font_size = 64
-text = "0"
 
 [node name="Message" type="Label" parent="."]
 anchors_preset = -1
