@@ -8,7 +8,7 @@ The core mechanic of the game in the tutorial is that a player needs to "dodge c
 
 # Game Preview
 
-![Game Preview](eg/preview.GIF)
+![Game Preview](eg/preview.png)
 
 # How to run
 
