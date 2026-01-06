@@ -44,9 +44,7 @@ func start(pos):
 	$CollisionShape2D.disabled = false
 
 func _on_body_entered(body: Node2D) -> void:
-	print("hit")
 	hit.emit()
 	Score.score += 1
-	print(Score.score)
 	get_node("/root/Main/HUD").update_score()
 	body.queue_free()

@@ -2,6 +2,7 @@ extends Node
 
 @export var mob_scene: PackedScene
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass
@@ -11,9 +12,10 @@ func _process(_delta: float) -> void:
 	pass
 
 func game_over():
-	$ScoreTimer.stop()
 	$MobTimer.stop()
+	$HUD.stop_timer()
 	$HUD.show_game_over()
+
 
 func new_game():
 	Score.score = 0
@@ -22,8 +24,6 @@ func new_game():
 	$Player.start($StartPosition.position)
 	$StartTimer.start()
 	get_tree().call_group("mobs", "queue_free")
-	
-	
 
 
 func _on_mob_timer_timeout():
@@ -51,6 +51,7 @@ func _on_mob_timer_timeout():
 	# Spawn the mob by adding it to the Main scene.
 	add_child(mob)
 
-
 func _on_start_timer_timeout():
-	$MobTimer.start()
+	$MobTimer.start()	
+	$HUD.start_timer()
+	

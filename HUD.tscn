@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://bygg0qm4y8c5n"]
+[gd_scene load_steps=3 format=3 uid="uid://c4e7f6lnbfwep"]
 
 [ext_resource type="Script" uid="uid://claqxxdseq0hn" path="res://HUD.gd" id="1_efote"]
 [ext_resource type="FontFile" uid="uid://dsslxgebcrnhe" path="res://fonts/Xolonium-Regular.ttf" id="2_vow1y"]
@@ -58,5 +58,23 @@ text = "Start"
 wait_time = 2.0
 one_shot = true
 
+[node name="GameTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="TimeLabel" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_right = -20.0
+offset_bottom = 78.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+theme_override_fonts/font = ExtResource("2_vow1y")
+theme_override_font_sizes/font_size = 32
+text = "Time: 0"
+horizontal_alignment = 2
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
+[connection signal="timeout" from="GameTimer" to="." method="_on_game_timer_timeout"]
