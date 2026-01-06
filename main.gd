@@ -5,19 +5,23 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	$HUD.restart_game.connect(new_game)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
 
 func game_over():
+	get_tree().paused = true
 	$MobTimer.stop()
 	$HUD.stop_timer()
 	$HUD.show_game_over()
 
 
 func new_game():
+	get_tree().paused = false
+	$MobTimer.stop()
+	$HUD.stop_timer()
 	Score.score = 0
 	$HUD.update_score()
 	$HUD.show_message("Get Ready")
@@ -42,6 +46,7 @@ func _on_mob_timer_timeout():
 
 	# Add some randomness to the direction.
 	direction += randf_range(-0.1, 0.1)
+	mob.add_to_group("mobs")
 	#mob.rotation = direction
 
 	# Choose the velocity for the mob.

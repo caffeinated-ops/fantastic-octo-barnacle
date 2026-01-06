@@ -1,5 +1,6 @@
 extends CanvasLayer
 signal start_game
+signal restart_game
 
 @onready var game_timer = $GameTimer
 @onready var time_label = $TimeLabel
@@ -9,6 +10,8 @@ signal start_game
 func _ready() -> void:
 	$NameInput.hide()
 	$SubmitButton.hide()
+	$PauseButton.hide()
+	$RestartButton.hide()
 	$StartButton.show()
 	$LeaderboardButton.show()
 	add_child(leaderboard)
@@ -34,6 +37,8 @@ func show_game_over():
 	await $MessageTimer.timeout
 	# Show name input for leaderboard
 	show_name_input()
+	$PauseButton.hide()
+	$RestartButton.hide()
 
 # Show the name input UI
 func show_name_input():
@@ -64,6 +69,8 @@ func _on_start_button_pressed():
 	$LeaderboardButton.hide()
 	$NameInput.hide()
 	$SubmitButton.hide()
+	$PauseButton.show()
+	$RestartButton.show()
 	start_game.emit()
 
 # Handle LeaderboardButton pressed event to show leaderboard
@@ -103,3 +110,15 @@ func _on_game_timer_timeout():
 	stop_timer()
 	# Emit a signal or call game_over on main
 	get_parent().game_over()
+
+# Handle PauseButton pressed
+func _on_pause_button_pressed():
+	get_tree().paused = !get_tree().paused
+	if get_tree().paused:
+		$PauseButton.text = "Resume"
+	else:
+		$PauseButton.text = "Pause"
+
+# Handle RestartButton pressed
+func _on_restart_button_pressed():
+	restart_game.emit()
