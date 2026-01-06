@@ -108,7 +108,5 @@ func _on_body_entered(body: Node2D) -> void:
 	else:
 		# Player takes damage
 		hit.emit()
-		Score.score += 1
-		get_node("/root/Main/HUD").update_score()
 		get_node("/root/Main/HUD").decrease_health()
 		body.queue_free()

@@ -13,16 +13,44 @@ signal restart_game
 var max_health = 3
 var current_health = 3
 
-# Called when the node enters the scene tree for the first time
 func _ready() -> void:
+	process_mode = PROCESS_MODE_ALWAYS
+	$PauseButton.process_mode = PROCESS_MODE_ALWAYS
+	$RestartButton.process_mode = PROCESS_MODE_ALWAYS
+	reset_ui()
+	add_child(leaderboard)
+	update_health_display()
+
+# Reset the UI to initial state
+func reset_ui(is_restart: bool = false):
 	$NameInput.hide()
 	$SubmitButton.hide()
 	$PauseButton.hide()
 	$RestartButton.hide()
-	$StartButton.show()
-	$LeaderboardButton.show()
-	add_child(leaderboard)
-	update_health_display()
+	$AttackLabel.hide()
+	if not is_restart:
+		$StartButton.show()
+		$LeaderboardButton.show()
+	else:
+		$StartButton.hide()
+		$LeaderboardButton.show()  # Keep leaderboard shown for restart
+	$Message.hide()
+	$ScoreLabel.show()
+
+# Set the restart button to "Restart" style (top-left)
+func set_restart_button_style():
+	$RestartButton.anchor_left = 0
+	$RestartButton.anchor_top = 0
+	$RestartButton.anchor_right = 0
+	$RestartButton.anchor_bottom = 0
+	$RestartButton.offset_left = 201.0
+	$RestartButton.offset_top = 29.0
+	$RestartButton.offset_right = 351.0
+	$RestartButton.offset_bottom = 79.0
+	$RestartButton.add_theme_font_size_override("font_size", 32)
+	$RestartButton.add_theme_constant_override("content_margin_left", 0)
+	$RestartButton.add_theme_constant_override("content_margin_right", 0)
+	$RestartButton.text = "Restart"
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame
@@ -119,6 +147,7 @@ func _on_start_button_pressed():
 	$NameInput.hide()
 	$SubmitButton.hide()
 	$PauseButton.show()
+	set_restart_button_style()
 	$RestartButton.show()
 	start_game.emit()
 
@@ -140,9 +169,22 @@ func _on_submit_button_pressed():
 	# Show "Devour all" message (no timer)
 	$Message.text = "Devour all"
 	$Message.show()
-	# Show StartButton after a delay
+	# Show RestartButton after a delay
 	await get_tree().create_timer(1.0).timeout
-	$StartButton.show()
+	$RestartButton.anchors_preset = 7
+	$RestartButton.anchor_left = 0.5
+	$RestartButton.anchor_top = 1.0
+	$RestartButton.anchor_right = 0.5
+	$RestartButton.anchor_bottom = 1.0
+	$RestartButton.offset_left = -100.0
+	$RestartButton.offset_top = -410.0
+	$RestartButton.offset_right = 100.0
+	$RestartButton.offset_bottom = -310.0
+	$RestartButton.add_theme_font_size_override("font_size", 64)
+	$RestartButton.add_theme_constant_override("content_margin_left", 40)
+	$RestartButton.add_theme_constant_override("content_margin_right", 40)
+	$RestartButton.text = "Play Again"
+	$RestartButton.show()
 	$LeaderboardButton.show()
 
 # Handle name input text submitted (Enter key)
@@ -167,6 +209,11 @@ func _on_pause_button_pressed():
 		$PauseButton.text = "Resume"
 	else:
 		$PauseButton.text = "Pause"
+
+# Reset the pause button to unpaused state
+func reset_pause_button():
+	$PauseButton.text = "Pause"
+	$PauseButton.show()
 
 # Handle RestartButton pressed
 func _on_restart_button_pressed():
