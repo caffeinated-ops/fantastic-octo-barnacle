@@ -4,7 +4,7 @@ This repository contains code written during following a tutorial "Your first 2D
 
 Tutorial: https://docs.godotengine.org/en/stable/getting_started/first_2d_game/index.html
 
-The core mechanic of the game in the tutorial is that a player needs to "dodge creeps" for as long as possible. To make it a challenge, the author of this repo decided to change the mission to eat as many enemies as possible.
+The core mechanic of the game in the tutorial is that a player needs to "dodge creeps" for as long as possible. To make it a challenge, the author of this repo decided to change the mission to eat as many enemies as possible. The game has since evolved to include combat mechanics, scoring, leaderboards, and more.
 
 # Game Preview
 
@@ -21,25 +21,32 @@ If you decide to run the project, you have two options.
 4. Press F6 to run the game.
 
 **Via executable**:
-- Download the executable file for your operating system from the "Releases" section of this repository: https://github.com/caffeinated-ops/fantastic-octo-barnacle/releases/tag/v0.1.0
-    - For Windows, download `fantastic-octo-barnacle-windows.zip`.
-    - For Linux, download `fantastic-octo-barnacle-linux.tar.gz`.
+- Download the executable file for your operating system from the "Releases" section of this repository: https://github.com/caffeinated-ops/fantastic-octo-barnacle/releases/tag/v0.1.1
+    - For Windows, download `DevourAll.exe`.
+    - For Linux, download `DevourAll.x86_64`.
 - Extract the downloaded file to a desired location.
 - Run the executable file:
-    - On Windows, double-click `fantastic-octo-barnacle.exe`.
-    - On Linux, run `./fantastic-octo-barnacle.x86_64` from the terminal. If needed, make the file executable with `chmod +x fantastic-octo-barnacle.x86_64`.
-
+    - On Windows, double-click `DevourAll.exe`.
+    - On Linux, run `./DevourAll.x86_64` from the terminal. If needed, make the file executable with `chmod +x DevourAll.x86_64`.
 
 # How to Play
 
 - Use arrow keys or WASD to move the player character.
-- Eat as many enemies (creeps) as possible to increase your score.
+- Eat as many enemies as possible to increase your score.
+- Engage in combat: deal and take damage from enemies.
+- Survive as long as possible while the timer runs.
+- View your final score and check the leaderboards.
+- Use pause and restart buttons to control gameplay.
 
 # Technologies and Resources Used
 
 - [Godot Engine](https://godotengine.org/) - Open-source game engine used for developing the game.
 - GDScript - Scripting language used in Godot for game logic.  
 - [Burrito](https://immortal-burrito.itch.io/) - Digital artist who created the game assets used in this project (with permission).
+
+# License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 # Minimum System Requirements
 
@@ -49,8 +56,8 @@ If you decide to run the project, you have two options.
 # Future Improvements
 
 - Add sound effects and background music.
-- Add a max time limit to increase challenge.
 - Improve user interface and visual effects.
 - Implement different attack types or power-ups for the player.
 - Add statistics tracking (e.g., highest score, total enemies eaten).
 
+See [CHANGELOG.md](CHANGELOG.md) for detailed version history.
