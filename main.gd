@@ -24,6 +24,7 @@ func new_game():
 	$HUD.stop_timer()
 	Score.score = 0
 	$HUD.update_score()
+	$HUD.reset_health()
 	$HUD.show_message("Get Ready")
 	$Player.start($StartPosition.position)
 	$StartTimer.start()

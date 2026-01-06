@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cbtdgbb88plh5"]
 
 [ext_resource type="PackedScene" uid="uid://8ave1i33ii2y" path="res://mob.tscn" id="2_1bvp3"]
-[ext_resource type="PackedScene" path="res://player.tscn" id="3_lquwl"]
+[ext_resource type="PackedScene" uid="uid://d038k4uvwogdj" path="res://player.tscn" id="3_lquwl"]
 [ext_resource type="PackedScene" uid="uid://c4e7f6lnbfwep" path="res://HUD.tscn" id="4_1bvp3"]
 [ext_resource type="Script" uid="uid://cn2xlvnlm1xjg" path="res://main.gd" id="5_main"]
 
@@ -44,6 +44,7 @@ curve = SubResource("Curve2D_7mycd")
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
 
 [node name="HUD" parent="." instance=ExtResource("4_1bvp3")]
+process_mode = 0
 
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]

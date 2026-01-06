@@ -141,6 +141,50 @@ theme_override_fonts/font = ExtResource("2_vow1y")
 theme_override_font_sizes/font_size = 32
 text = "Restart"
 
+[node name="Heart1" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 70.0
+offset_bottom = 70.0
+theme_override_fonts/font = ExtResource("2_vow1y")
+theme_override_font_sizes/font_size = 48
+text = "♥"
+horizontal_alignment = 1
+
+[node name="Heart2" type="Label" parent="."]
+offset_left = 70.0
+offset_top = 20.0
+offset_right = 120.0
+offset_bottom = 70.0
+theme_override_fonts/font = ExtResource("2_vow1y")
+theme_override_font_sizes/font_size = 48
+text = "♥"
+horizontal_alignment = 1
+
+[node name="Heart3" type="Label" parent="."]
+offset_left = 120.0
+offset_top = 20.0
+offset_right = 170.0
+offset_bottom = 70.0
+theme_override_fonts/font = ExtResource("2_vow1y")
+theme_override_font_sizes/font_size = 48
+text = "♥"
+horizontal_alignment = 1
+
+[node name="AttackLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 80.0
+offset_right = 150.0
+offset_bottom = 120.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_vow1y")
+theme_override_font_sizes/font_size = 24
+text = "Attack Ready (Space)"
+horizontal_alignment = 1
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="LeaderboardButton" to="." method="_on_leaderboard_button_pressed"]
 [connection signal="text_submitted" from="NameInput" to="." method="_on_name_input_text_submitted"]
