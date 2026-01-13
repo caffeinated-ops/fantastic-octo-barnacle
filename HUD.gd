@@ -2,6 +2,9 @@ extends CanvasLayer
 signal start_game
 signal restart_game
 
+var max_health = 3
+var current_health = 3
+
 @onready var game_timer = $GameTimer
 @onready var time_label = $TimeLabel
 @onready var leaderboard = preload("res://leaderboard.gd").new()
@@ -9,9 +12,6 @@ signal restart_game
 @onready var heart2 = $Heart2
 @onready var heart3 = $Heart3
 @onready var attack_label = $AttackLabel
-
-var max_health = 3
-var current_health = 3
 
 func _ready() -> void:
 	process_mode = PROCESS_MODE_ALWAYS
@@ -58,7 +58,7 @@ func _process(_delta: float) -> void:
 	if game_timer.time_left > 0:
 		var current_second = ceil(game_timer.time_left)
 		time_label.text = "Time: " + str(current_second)
-	
+
 	# Position hearts above the player
 	if get_parent().has_node("Player"):
 		var player = get_parent().get_node("Player")
@@ -113,7 +113,7 @@ func update_attack_status(cooldown_time: float, is_active: bool):
 		attack_label.modulate = Color(1, 0.5, 0.5)
 	elif cooldown_time > 0:
 		attack_label.text = "Cooldown: %.1f" % cooldown_time
-		attack_label.modulate = Color(0.5, 0.5, 0.5) 
+		attack_label.modulate = Color(0.5, 0.5, 0.5)
 	else:
 		attack_label.text = "Attack Ready (Space)"
 		attack_label.modulate = Color(1, 1, 1)
@@ -160,12 +160,12 @@ func _on_submit_button_pressed():
 	var player_name = $NameInput.text.strip_edges()
 	if player_name == "":
 		player_name = "Anonymous"
-	
+
 	leaderboard.add_entry(player_name, Score.score)
-	
+
 	$NameInput.hide()
 	$SubmitButton.hide()
-	
+
 	# Show "Devour all" message (no timer)
 	$Message.text = "Devour all"
 	$Message.show()

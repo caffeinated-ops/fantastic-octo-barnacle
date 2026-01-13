@@ -17,6 +17,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Lint GDScript
+        uses: Scony/godot-gdscript-toolkit@v1
+        with:
+          path: .
+          check: true
+
       - name: Setup Export Templates
         run: |
           mkdir -p ~/.local/share/godot/export_templates/4.3.stable

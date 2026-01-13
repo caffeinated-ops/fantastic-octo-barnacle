@@ -8,8 +8,13 @@ var spawn_counter = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$HUD.start_game.connect(new_game)
-	$HUD.restart_game.connect(func(): new_game(true))
+	if not $HUD.start_game.is_connected(new_game):
+		$HUD.start_game.connect(new_game)
+	if not $HUD.restart_game.is_connected(restart_game):
+		$HUD.restart_game.connect(restart_game)
+
+func restart_game():
+	new_game(true)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -26,7 +31,7 @@ func game_over():
 
 
 func new_game(is_restart: bool = false):
-	get_tree().paused = false 
+	get_tree().paused = false
 	$HUD.reset_pause_button()
 	$MobTimer.stop()
 	$HUD.stop_timer()
@@ -57,7 +62,7 @@ func _on_mob_timer_timeout():
 	spawn_counter += 1
 	if spawn_counter % 10 == 0:
 		spawn_wave += 1
-	
+
 	for i in range(spawn_wave):
 		# Create a new instance of the Mob scene.
 		var mob = mob_scene.instantiate()
@@ -85,7 +90,7 @@ func _on_mob_timer_timeout():
 		add_child(mob)
 
 func _on_start_timer_timeout():
-	$MobTimer.start()	
+	$MobTimer.start()
 	$HUD.start_timer()
 	$HUD/PauseButton.show()
 	$HUD.set_restart_button_style()
@@ -93,4 +98,3 @@ func _on_start_timer_timeout():
 	$HUD/StartButton.hide()
 	$HUD/AttackLabel.show()
 	$HUD/LeaderboardButton.hide()
-	
