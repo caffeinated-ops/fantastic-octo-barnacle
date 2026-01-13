@@ -19,6 +19,7 @@ jobs:
 
       - name: Lint GDScript
         run: |
+          apt-get update && apt-get install -y python3-pip
           pip install gdtoolkit
           gdlint **/*.gd
 
