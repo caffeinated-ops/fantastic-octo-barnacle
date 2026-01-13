@@ -11,15 +11,11 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     if: "!startsWith(github.ref, 'refs/tags/')"
+    container:
+      image: barichello/godot-ci:4.3
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup Godot
-        uses: barichello/godot-ci@v4
-        with:
-          godot_version: 4.5.1
-          godot_export_templates: 4.5.1
 
       - name: Lint GDScript
         run: |
@@ -29,17 +25,17 @@ jobs:
       - name: Export Linux
         run: |
           mkdir -p export/linux
-          godot --headless --export "Linux" export/linux/DevourAll.x86_64
+          godot --headless --export-release "Linux" export/linux/DevourAll.x86_64
 
       - name: Export Windows
         run: |
           mkdir -p export/windows
-          godot --headless --export "Windows Desktop" export/windows/DevourAll.exe
+          godot --headless --export-release "Windows Desktop" export/windows/DevourAll.exe
 
       - name: Export macOS
         run: |
           mkdir -p export/mac
-          godot --headless --export "macOS" export/mac/DevourAll.zip
+          godot --headless --export-release "macOS" export/mac/DevourAll.zip
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
@@ -52,30 +48,26 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     permissions:
       contents: write
+    container:
+      image: barichello/godot-ci:4.3
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Godot
-        uses: barichello/godot-ci@v4
-        with:
-          godot_version: 4.5.1
-          godot_export_templates: 4.5.1
-
       - name: Export Linux
         run: |
           mkdir -p export/linux
-          godot --headless --export "Linux" export/linux/DevourAll.x86_64
+          godot --headless --export-release "Linux" export/linux/DevourAll.x86_64
 
       - name: Export Windows
         run: |
           mkdir -p export/windows
-          godot --headless --export "Windows Desktop" export/windows/DevourAll.exe
+          godot --headless --export-release "Windows Desktop" export/windows/DevourAll.exe
 
       - name: Export macOS
         run: |
           mkdir -p export/mac
-          godot --headless --export "macOS" export/mac/DevourAll.zip
+          godot --headless --export-release "macOS" export/mac/DevourAll.zip
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
