@@ -35,11 +35,6 @@ jobs:
           mkdir -p export/windows
           godot --headless --export-release "Windows Desktop" export/windows/DevourAll.exe
 
-      - name: Export macOS
-        run: |
-          mkdir -p export/mac
-          godot --headless --export-release "macOS" export/mac/DevourAll.zip
-
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -75,18 +70,10 @@ jobs:
           mkdir -p export/windows
           godot --headless --export-release "Windows Desktop" export/windows/DevourAll.exe
 
-      - name: Export macOS
-        run: |
-          mkdir -p export/mac
-          godot --headless --export-release "macOS" export/mac/DevourAll.zip
-
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
             export/linux/DevourAll.x86_64
             export/windows/DevourAll.exe
-            export/mac/DevourAll.zip
           generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
