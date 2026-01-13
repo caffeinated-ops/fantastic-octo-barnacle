@@ -1,0 +1,79 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    if: "!startsWith(github.ref, 'refs/tags/')"
+    container:
+      image: barichello/godot-ci:4.3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Export Templates
+        run: |
+          mkdir -p ~/.local/share/godot/export_templates/4.3.stable
+          wget -q https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_export_templates.tpz
+          unzip -q Godot_v4.3-stable_export_templates.tpz
+          mv templates/* ~/.local/share/godot/export_templates/4.3.stable/
+          rm Godot_v4.3-stable_export_templates.tpz
+
+      - name: Export Linux
+        run: |
+          mkdir -p export/linux
+          godot --headless --export-release "Linux" export/linux/DevourAll.x86_64
+
+      - name: Export Windows
+        run: |
+          mkdir -p export/windows
+          godot --headless --export-release "Windows Desktop" export/windows/DevourAll.exe
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: builds
+          path: export/
+
+  release:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
+    container:
+      image: barichello/godot-ci:4.3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Export Templates
+        run: |
+          mkdir -p ~/.local/share/godot/export_templates/4.3.stable
+          wget -q https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_export_templates.tpz
+          unzip -q Godot_v4.3-stable_export_templates.tpz
+          mv templates/* ~/.local/share/godot/export_templates/4.3.stable/
+          rm Godot_v4.3-stable_export_templates.tpz
+
+      - name: Export Linux
+        run: |
+          mkdir -p export/linux
+          godot --headless --export-release "Linux" export/linux/DevourAll.x86_64
+
+      - name: Export Windows
+        run: |
+          mkdir -p export/windows
+          godot --headless --export-release "Windows Desktop" export/windows/DevourAll.exe
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            export/linux/DevourAll.x86_64
+            export/windows/DevourAll.exe
+          generate_release_notes: true
