@@ -15,7 +15,7 @@ func load_leaderboard():
 		if file:
 			var json_string = file.get_as_text()
 			file.close()
-			
+
 			var json = JSON.new()
 			var parse_result = json.parse(json_string)
 			if parse_result == OK:
@@ -54,16 +54,16 @@ func add_entry(player_name: String, score: int):
 		"date": "%04d-%02d-%02d" % [current_time.year, current_time.month, current_time.day],
 		"time": "%02d:%02d:%02d" % [current_time.hour, current_time.minute, current_time.second]
 	}
-	
+
 	leaderboard_data.append(entry)
-	
+
 	# Sort by score descending
 	leaderboard_data.sort_custom(func(a, b): return a.score > b.score)
-	
+
 	# Keep only top 10 entries
 	if leaderboard_data.size() > 10:
 		leaderboard_data.resize(10)
-	
+
 	save_leaderboard()
 
 # Get the leaderboard data (sorted)
