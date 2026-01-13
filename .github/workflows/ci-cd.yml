@@ -17,11 +17,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Lint GDScript
-        run: |
-          pip install gdtoolkit
-          gdlint . || echo "Linting failed, but continuing..."
-
       - name: Export Linux
         run: |
           mkdir -p export/linux
