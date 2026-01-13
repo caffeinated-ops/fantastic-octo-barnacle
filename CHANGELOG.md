@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.0.0] - 2026-01-06
+
+## Added
+- Added CI/CD pipeline to automate release publishing
+- Linting and building executables is triggered upon push or submitting a PR to main
+- Exporting those build and publishing a new release is triggered by creating a tag on main
+- Added .pck embedding to be able to immediately execute downloaded files
+
+## Fixed
+- Solved all linting errors
+
 ## [v0.1.1] - 2026-01-06
 
 ### Added
