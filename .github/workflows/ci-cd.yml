@@ -1,0 +1,89 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    if: "!startsWith(github.ref, 'refs/tags/')"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Godot
+        uses: abarichello/godot-ci@3.6.2-stable
+        with:
+          godot_version: 4.5.1
+          godot_export_templates: 4.5.1
+
+      - name: Lint GDScript
+        run: |
+          pip install gdtoolkit
+          gdlint .
+
+      - name: Export Linux
+        run: |
+          mkdir -p export/linux
+          godot --headless --export "Linux" export/linux/DevourAll.x86_64
+
+      - name: Export Windows
+        run: |
+          mkdir -p export/windows
+          godot --headless --export "Windows Desktop" export/windows/DevourAll.exe
+
+      - name: Export macOS
+        run: |
+          mkdir -p export/mac
+          godot --headless --export "macOS" export/mac/DevourAll.zip
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: builds
+          path: export/
+
+  release:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Godot
+        uses: abarichello/godot-ci@3.6.2-stable
+        with:
+          godot_version: 4.5.1
+          godot_export_templates: 4.5.1
+
+      - name: Export Linux
+        run: |
+          mkdir -p export/linux
+          godot --headless --export "Linux" export/linux/DevourAll.x86_64
+
+      - name: Export Windows
+        run: |
+          mkdir -p export/windows
+          godot --headless --export "Windows Desktop" export/windows/DevourAll.exe
+
+      - name: Export macOS
+        run: |
+          mkdir -p export/mac
+          godot --headless --export "macOS" export/mac/DevourAll.zip
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            export/linux/DevourAll.x86_64
+            export/windows/DevourAll.exe
+            export/mac/DevourAll.zip
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
