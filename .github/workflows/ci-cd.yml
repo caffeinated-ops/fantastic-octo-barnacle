@@ -18,10 +18,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Lint GDScript
-        uses: Scony/godot-gdscript-toolkit@v1
-        with:
-          path: .
-          check: true
+        run: |
+          pip install gdtoolkit
+          gdlint **/*.gd
 
       - name: Setup Export Templates
         run: |
